@@ -3,7 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <head>
   <meta charset="UTF-8">
-  <title>3-Dart Q Calc - Virtuaalimedia Finland Oy</title>
+  <title>3-Dart Q Calculator - Virtuaalimedia Finland Oy</title>
   <link rel="stylesheet" href="./style.css">
 
 </head>
@@ -23,7 +23,7 @@
                         <div class="signup">
                                 <form autocomplete="off">
                                         <div ng-app="myApp" ng-controller="myCtrl" ng-init="d1=0;d2=0;d3=0">
-                                        <label for="chk" aria-hidden="true">3-Dart Calc</label>
+                                        <label for="chk" aria-hidden="true">3-Dart Calculator</label>
                                         <input type="text" autocomplete="off" name="txt" tabindex="1" autofocus onfocus="this.value=''" ng-model="d1"><span>Total: {{d1t()}}</span>
                                         <input type="text" autocomplete="off" name="txt" tabindex="2" onfocus="this.value=''" ng-model="d2"><span>Total: {{d2t()}}</span>
                                         <input type="text" autocomplete="off" name="txt" tabindex="3" onfocus="this.value=''" ng-model="d3"><span>Total: {{d3t()}}</span>
@@ -41,7 +41,7 @@ var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
 
     //if starts with number then *1, if starts with 't' then *2, if starts with 'd' then *3
-        function calc(a) {
+function calc(a) {
     var numbers = /\d+/g;
 
     //if a is not number then check if starts with d (double=2*) ot t (triple=3*)
@@ -53,13 +53,15 @@ app.controller('myCtrl', function($scope) {
         a = a.match( numbers ).join('')
         return 3*a;
     }
-
     //if a starts with number return number
+    else if (a > "0") {
+    		return Number(a);
+    }
     else{
-                return Number(a);
+         return Number("0");
         }
     };
-
+		$scope.zero="0";
     $scope.d1t= function() {
         return calc($scope.d1);
     };
@@ -72,7 +74,8 @@ app.controller('myCtrl', function($scope) {
     $scope.total = function() {
         return $scope.d1t()+$scope.d2t()+$scope.d3t();
     };
-});
+
+
 // Loop tab indexes with enter key
 var inputs = document.querySelectorAll("input,select");
 for (var i = 0 ; i < inputs.length; i++) {
@@ -83,16 +86,22 @@ for (var i = 0 ; i < inputs.length; i++) {
          if (nextInput.length === 0) {
             nextInput = document.querySelectorAll('[tabIndex="1"]');
             var elements = document.getElementsByTagName("input");
-			for (var ii=0; ii < elements.length; ii++) {
+            for (var ii=0; ii < elements.length; ii++) {
               if (elements[ii].type == "text") {
-                 elements[ii].value = "";
+                 elements[ii].value = "0";
               }
-			}
+						}
+            $scope.$apply(function () {
+                 $scope.d1 = "0";
+                 $scope.d2 = "0";
+                 $scope.d3 = "0";
+            });
          }
          nextInput[0].focus();
       }
    })
 }
+});
 </script>
 </body>
 </html>
