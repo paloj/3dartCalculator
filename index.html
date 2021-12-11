@@ -82,7 +82,12 @@ for (var i = 0 ; i < inputs.length; i++) {
          var nextInput = document.querySelectorAll('[tabIndex="' + (this.tabIndex + 1) + '"]');
          if (nextInput.length === 0) {
             nextInput = document.querySelectorAll('[tabIndex="1"]');
-            document.getElementById("button").click();
+            var elements = document.getElementsByTagName("input");
+			for (var ii=0; ii < elements.length; ii++) {
+              if (elements[ii].type == "text") {
+                 elements[ii].value = "";
+              }
+			}
          }
          nextInput[0].focus();
       }
