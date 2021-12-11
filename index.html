@@ -27,7 +27,7 @@
                                         <input type="text" autocomplete="off" name="txt" tabindex="1" autofocus onfocus="this.value=''" ng-model="d1"><span>Total: {{d1t()}}</span>
                                         <input type="text" autocomplete="off" name="txt" tabindex="2" onfocus="this.value=''" ng-model="d2"><span>Total: {{d2t()}}</span>
                                         <input type="text" autocomplete="off" name="txt" tabindex="3" onfocus="this.value=''" ng-model="d3"><span>Total: {{d3t()}}</span>
-                                        <button><b>Score:</b> {{total()}}</button>
+                                        <button id="button"><b>Score:</b> {{total()}}</button>
                                         </div>
                                         <p for="chk" aria-hidden="true">Press Enter to move</p>
                                         <p for="chk" aria-hidden="true">Use D/d=double and T/t=triple. i.ex T20 or d8</p>
@@ -82,9 +82,7 @@ for (var i = 0 ; i < inputs.length; i++) {
          var nextInput = document.querySelectorAll('[tabIndex="' + (this.tabIndex + 1) + '"]');
          if (nextInput.length === 0) {
             nextInput = document.querySelectorAll('[tabIndex="1"]');
-            document.getElementById('d1').value = '0';
-			document.getElementById('d2').value = '0';
-			document.getElementById('d3').value = '0';
+            document.getElementById("button").click();
          }
          nextInput[0].focus();
       }
