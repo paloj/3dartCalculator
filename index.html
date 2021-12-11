@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" >
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <title>3-Dart Q Calc - Virtuaalimedia Finland Oy</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Slide Navbar</title>
+        <link rel="stylesheet" type="text/css" href="slide navbar style.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+        <div class="main">
+                <input type="checkbox" id="chk" aria-hidden="true">
+
+                        <div class="signup">
+                                <form autocomplete="off">
+                                        <div ng-app="myApp" ng-controller="myCtrl" ng-init="d1=0;d2=0;d3=0">
+                                        <label for="chk" aria-hidden="true">3-Dart Calc</label>
+                                        <input type="text" autocomplete="off" name="txt" tabindex="1" autofocus onfocus="this.value=''" ng-model="d1"><span>Total: {{d1t()}}</span>
+                                        <input type="text" autocomplete="off" name="txt" tabindex="2" onfocus="this.value=''" ng-model="d2"><span>Total: {{d2t()}}</span>
+                                        <input type="text" autocomplete="off" name="txt" tabindex="3" onfocus="this.value=''" ng-model="d3"><span>Total: {{d3t()}}</span>
+                                        <button><b>Score:</b> {{total()}}</button>
+                                        </div>
+                                        <p for="chk" aria-hidden="true">Press Enter to move</p>
+                                        <p for="chk" aria-hidden="true">Use D/d=double and T/t=triple. i.ex T20 or d8</p>
+                                        <br>
+                                        <p for="chk" aria-hidden="true">&copy; MrBurns 2021</p>
+                                </form>
+                        </div>
+        </div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+
+    //if starts with number then *1, if starts with 't' then *2, if starts with 'd' then *3
+        function calc(a) {
+    var numbers = /\d+/g;
+
+    //if a is not number then check if starts with d (double=2*) ot t (triple=3*)
+    if(String(a).startsWith("d")||String(a).startsWith("D")){
+        a = a.match( numbers ).join('')
+        return 2*a;
+    }
+    else if(String(a).startsWith("t")||String(a).startsWith("T")){
+        a = a.match( numbers ).join('')
+        return 3*a;
+    }
+
+    //if a starts with number return number
+    else{
+                return Number(a);
+        }
+    };
+
+    $scope.d1t= function() {
+        return calc($scope.d1);
+    };
+    $scope.d2t= function() {
+        return calc($scope.d2);
+    };
+    $scope.d3t= function() {
+        return calc($scope.d3);
+    };
+    $scope.total = function() {
+        return $scope.d1t()+$scope.d2t()+$scope.d3t();
+    };
+});
+// Loop tab indexes with enter key
+var inputs = document.querySelectorAll("input,select");
+for (var i = 0 ; i < inputs.length; i++) {
+   inputs[i].addEventListener("keypress", function(e){
+      if (e.which == 13) {
+         e.preventDefault();
+         var nextInput = document.querySelectorAll('[tabIndex="' + (this.tabIndex + 1) + '"]');
+         if (nextInput.length === 0) {
+            nextInput = document.querySelectorAll('[tabIndex="1"]');
+         }
+         nextInput[0].focus();
+      }
+   })
+}
+</script>
+</body>
+</html>
+<!-- partial -->
+</body>
+</html>
